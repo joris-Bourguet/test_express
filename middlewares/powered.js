@@ -1,11 +1,10 @@
 const {generateJwt} = require("../scripts/generateJwt");
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   res.removeHeader('X-Powered-By');
   res.setHeader('X-Custom-Header', 'Joris');
 
-  generateJwt().then((signature) => {
-    res.setHeader('X-Powered-By', signature);
-  })
+  const token = await generateJwt();
+  req.headers['authorization'] = `Bearer ${token}`; // Ajoute le JWT à la requête
 
   next();
 }

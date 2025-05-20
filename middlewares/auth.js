@@ -2,7 +2,6 @@
 const fs = require('fs');
 const path = require('path');
 const {importSPKI, jwtVerify} = require('jose');
-const {generateJwt} = require("../scripts/generateJwt");
 
 // Lire la clé publique au format PEM
 const publicKeyPem = fs.readFileSync(path.join(__dirname, '../keys/public.pem'), 'utf8');
@@ -28,6 +27,7 @@ module.exports = async (req, res, next) => {
     }
 
     const {payload} = await jwtVerify(token, publicKey);
+
     req.user = payload;
     next();
   } catch (err) {

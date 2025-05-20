@@ -9,7 +9,6 @@ const powered = require('./middlewares/powered')
 const auth = require('./middlewares/auth');
 
 const apiRoutes = require('./routes/api');
-const {generateJwt} = require("./scripts/generateJwt");
 
 const port = 3001
 
@@ -29,7 +28,7 @@ app.use(auth)
 app.use('/api', apiRoutes);
 
 app.get('/protected', (req, res) => {
-  res.json({ message: 'Tu es authentifié', user: req.user });
+  res.json({message: 'Tu es authentifié', user: req.user});
 });
 
 // Error handling middleware
@@ -37,5 +36,5 @@ app.use(errorHandler);
 app.use(router)
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 })
